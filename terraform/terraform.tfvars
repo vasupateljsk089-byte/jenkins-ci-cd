@@ -1,0 +1,6 @@
+aws_region      = "ap-south-1"
+instance_type   = "t3.small"
+ami_id          = "ami-0f5ee92e2d63afc18"
+key_name        = "terra-automate-key"
+public_key_path = "C:\\Users\\vasub\\ec2.pub"
+cluster_name    = "devsecops-eks"
