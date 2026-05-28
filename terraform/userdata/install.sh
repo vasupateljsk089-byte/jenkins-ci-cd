@@ -7,6 +7,16 @@ echo "===== Starting Installation ====="
 apt-get update -y
 apt-get upgrade -y
 
+# ─── 0. Swap (2GB) ──────────────────────────────────────────────
+echo "Setting up swap..."
+fallocate -l 2G /swapfile
+chmod 600 /swapfile
+mkswap /swapfile
+swapon /swapfile
+echo '/swapfile none swap sw 0 0' >> /etc/fstab
+echo "Swap enabled:"
+free -h
+
 # ─── 1. Docker ──────────────────────────────────────────────────
 echo "Installing Docker..."
 apt-get install -y docker.io
@@ -52,6 +62,8 @@ docker run -itd \
   --name SonarQube-Server \
   --restart always \
   -p 9000:9000 \
+  --memory="1g" \
+  --memory-swap="1.5g" \
   sonarqube:lts-community
 
 # ─── 5. kubectl ─────────────────────────────────────────────────
@@ -97,6 +109,6 @@ chown -R jenkins:jenkins /var/lib/jenkins/dependency-check-data || true
 
 # ─── Done ───────────────────────────────────────────────────────
 echo "===== All tools installed successfully! ====="
-
+free -h
 echo "Jenkins initial password:"
 cat /var/lib/jenkins/secrets/initialAdminPassword || echo "Jenkins not ready yet"

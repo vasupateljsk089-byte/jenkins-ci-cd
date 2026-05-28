@@ -1,6 +1,6 @@
 @Library('Shared') _
 pipeline {
-    agent {label 'Node'}
+    agent any
     
     environment{
         SONAR_HOME = tool "Sonar"
@@ -32,7 +32,7 @@ pipeline {
         stage('Git: Code Checkout') {
             steps {
                 script{
-                    code_checkout("https://github.com/LondheShubham153/Wanderlust-Mega-Project.git","main")
+                    clone("https://github.com/vasupateljsk089-byte/jenkins-ci-cd.git","main")
                 }
             }
         }
@@ -69,39 +69,56 @@ pipeline {
             }
         }
         
-        stage('Exporting environment variables') {
-            parallel{
-                stage("Backend env setup"){
+        stage('Export Environment Variables') {
+            parallel {
+
+                stage("Backend Env Setup") {
                     steps {
-                        script{
-                            dir("Automations"){
-                                sh "bash updatebackendnew.sh"
+                        script {
+                            dir("Automations") {
+                                sh '''
+                                bash update-env.sh \
+                                argocd \
+                                argocd-ingress \
+                                ../backend/.env.docker \
+                                FRONTEND_URL \
+                                /app
+                                '''
                             }
                         }
                     }
                 }
-                
-                stage("Frontend env setup"){
+
+                stage("Frontend Env Setup") {
                     steps {
-                        script{
-                            dir("Automations"){
-                                sh "bash updatefrontendnew.sh"
+                        script {
+                            dir("Automations") {
+                                sh '''
+                                bash update-env.sh \
+                                argocd \
+                                argocd-ingress \
+                                ../frontend/.env.docker \
+                                VITE_API_PATH \
+                                /api
+                                '''
                             }
                         }
                     }
                 }
+
             }
+
         }
-        
+
         stage("Docker: Build Images"){
             steps{
                 script{
                         dir('backend'){
-                            docker_build("wanderlust-backend-beta","${params.BACKEND_DOCKER_TAG}","trainwithshubham")
+                            docker_build("wanderlust-backend-beta","${params.BACKEND_DOCKER_TAG}","vasubhalanipa23")
                         }
                     
                         dir('frontend'){
-                            docker_build("wanderlust-frontend-beta","${params.FRONTEND_DOCKER_TAG}","trainwithshubham")
+                            docker_build("wanderlust-frontend-beta","${params.FRONTEND_DOCKER_TAG}","vasubhalanipa23")
                         }
                 }
             }
@@ -110,8 +127,8 @@ pipeline {
         stage("Docker: Push to DockerHub"){
             steps{
                 script{
-                    docker_push("wanderlust-backend-beta","${params.BACKEND_DOCKER_TAG}","trainwithshubham") 
-                    docker_push("wanderlust-frontend-beta","${params.FRONTEND_DOCKER_TAG}","trainwithshubham")
+                    docker_push("wanderlust-backend-beta","${params.BACKEND_DOCKER_TAG}","vasubhalanipa23") 
+                    docker_push("wanderlust-frontend-beta","${params.FRONTEND_DOCKER_TAG}","vasubhalanipa23")
                 }
             }
         }
