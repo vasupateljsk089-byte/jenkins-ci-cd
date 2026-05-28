@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: trainwithshubham/wanderlust-backend-beta:v2.1
+          image: vasubhalanipa23/wanderlust-backend-beta:v2.1
           ports:
             - containerPort: 8080
 ---
@@ -28,11 +28,10 @@ metadata:
   name: backend-service
   namespace: wanderlust
 spec:
-  type: NodePort
+  type: ClusterIP
   selector:
     app: backend
   ports:
     - port: 8080
       targetPort: 8080
       protocol: TCP
-      nodePort: 31100

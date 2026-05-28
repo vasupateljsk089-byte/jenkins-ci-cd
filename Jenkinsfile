@@ -32,7 +32,7 @@ pipeline {
         stage('Git: Code Checkout') {
             steps {
                 script{
-                    clone("https://github.com/vasupateljsk089-byte/jenkins-ci-cd.git","main")
+                    code_checkout("https://github.com/vasupateljsk089-byte/jenkins-ci-cd.git","main")
                 }
             }
         }
