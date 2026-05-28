@@ -8,7 +8,8 @@ module "eks" {
   vpc_id     = var.vpc_id
   subnet_ids = var.subnet_ids
 
-  endpoint_public_access = true
+  endpoint_public_access = false
+  endpoint_private_access = true
 
   enable_cluster_creator_admin_permissions = true
 
@@ -32,16 +33,12 @@ module "eks" {
       instance_types = ["t3.small"]
 
       min_size     = 2
-      max_size     = 2
+      max_size     = 3
       desired_size = 2
 
-    remote_access = {
-      ec2_ssh_key = var.key_name
-    }
-
+      key_name = var.key_name
     }
   }
-
   tags = {
     Environment = "dev"
     Terraform   = "true"

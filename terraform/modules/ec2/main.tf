@@ -43,6 +43,7 @@ resource "aws_instance" "jenkins_server" {
   key_name                    = aws_key_pair.deployer.key_name
   vpc_security_group_ids      = [var.security_group_id]
   associate_public_ip_address = true
+  iam_instance_profile        = aws_iam_instance_profile.jenkins_profile.name
 
   # Runs install.sh on first boot to set up Jenkins, Docker, SonarQube, Grafana
   user_data = var.user_data
