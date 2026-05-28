@@ -75,50 +75,210 @@ pipeline {
             }
         }
     }
-  post {
+
+    post {
         success {
             script {
                 emailext attachLog: true,
-                from: 'trainwithshubham@gmail.com',
-                subject: "Wanderlust Application has been updated and deployed - '${currentBuild.result}'",
+                from: 'vasupateljsk089@gmail.com',
+                subject: "✅ [SUCCESS] Wanderlust Deployed Successfully - Build #${env.BUILD_NUMBER}",
                 body: """
                     <html>
-                    <body>
-                        <div style="background-color: #FFA07A; padding: 10px; margin-bottom: 10px;">
-                            <p style="color: black; font-weight: bold;">Project: ${env.JOB_NAME}</p>
-                        </div>
-                        <div style="background-color: #90EE90; padding: 10px; margin-bottom: 10px;">
-                            <p style="color: black; font-weight: bold;">Build Number: ${env.BUILD_NUMBER}</p>
-                        </div>
-                        <div style="background-color: #87CEEB; padding: 10px; margin-bottom: 10px;">
-                            <p style="color: black; font-weight: bold;">URL: ${env.BUILD_URL}</p>
-                        </div>
+                    <body style="margin:0; padding:0; font-family: 'Segoe UI', Arial, sans-serif; background-color:#f4f6f9;">
+                        <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#f4f6f9; padding: 30px 0;">
+                            <tr>
+                                <td align="center">
+                                    <table width="600" cellpadding="0" cellspacing="0" style="background-color:#ffffff; border-radius:12px; overflow:hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
+                                        
+                                        <!-- Header Banner -->
+                                        <tr>
+                                            <td style="background: linear-gradient(135deg, #28a745, #20c997); padding: 35px 40px; text-align:center;">
+                                                <p style="margin:0; font-size:40px;">🚀</p>
+                                                <h1 style="margin:10px 0 5px; color:#ffffff; font-size:26px; font-weight:700; letter-spacing:1px;">Deployment Successful!</h1>
+                                                <p style="margin:0; color:#d4f5e2; font-size:14px;">Wanderlust Application is live and running</p>
+                                            </td>
+                                        </tr>
+
+                                        <!-- Body -->
+                                        <tr>
+                                            <td style="padding: 35px 40px;">
+
+                                                <p style="color:#555; font-size:15px; margin-top:0;">Hi Team 👋, the latest build has been <strong style="color:#28a745;">successfully deployed</strong>. Here's a quick summary:</p>
+
+                                                <!-- Info Cards -->
+                                                <table width="100%" cellpadding="0" cellspacing="0" style="margin: 20px 0;">
+                                                    <tr>
+                                                        <td style="padding: 4px;">
+                                                            <table width="100%" cellpadding="12" cellspacing="0" style="background:#f0faf4; border-left: 4px solid #28a745; border-radius:6px;">
+                                                                <tr>
+                                                                    <td style="font-size:13px; color:#555;">📁 <strong>Project</strong></td>
+                                                                    <td style="font-size:14px; color:#222; text-align:right; font-weight:600;">${env.JOB_NAME}</td>
+                                                                </tr>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="padding: 4px;">
+                                                            <table width="100%" cellpadding="12" cellspacing="0" style="background:#f0faf4; border-left: 4px solid #20c997; border-radius:6px;">
+                                                                <tr>
+                                                                    <td style="font-size:13px; color:#555;">🔢 <strong>Build Number</strong></td>
+                                                                    <td style="font-size:14px; color:#222; text-align:right; font-weight:600;">#${env.BUILD_NUMBER}</td>
+                                                                </tr>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="padding: 4px;">
+                                                            <table width="100%" cellpadding="12" cellspacing="0" style="background:#f0faf4; border-left: 4px solid #17a2b8; border-radius:6px;">
+                                                                <tr>
+                                                                    <td style="font-size:13px; color:#555;">🐳 <strong>Frontend Tag</strong></td>
+                                                                    <td style="font-size:14px; color:#222; text-align:right; font-weight:600;">${params.FRONTEND_DOCKER_TAG}</td>
+                                                                </tr>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="padding: 4px;">
+                                                            <table width="100%" cellpadding="12" cellspacing="0" style="background:#f0faf4; border-left: 4px solid #6f42c1; border-radius:6px;">
+                                                                <tr>
+                                                                    <td style="font-size:13px; color:#555;">🐳 <strong>Backend Tag</strong></td>
+                                                                    <td style="font-size:14px; color:#222; text-align:right; font-weight:600;">${params.BACKEND_DOCKER_TAG}</td>
+                                                                </tr>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+
+                                                <!-- CTA Button -->
+                                                <table width="100%" cellpadding="0" cellspacing="0" style="margin-top:25px;">
+                                                    <tr>
+                                                        <td align="center">
+                                                            <a href="${env.BUILD_URL}" style="background: linear-gradient(135deg, #28a745, #20c997); color:#ffffff; text-decoration:none; padding:13px 35px; border-radius:25px; font-size:14px; font-weight:700; display:inline-block; letter-spacing:0.5px;">🔍 View Build Logs</a>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+
+                                            </td>
+                                        </tr>
+
+                                        <!-- Footer -->
+                                        <tr>
+                                            <td style="background:#f8f9fa; padding:20px 40px; text-align:center; border-top:1px solid #e9ecef;">
+                                                <p style="margin:0; font-size:12px; color:#aaa;">This is an automated notification from <strong>Jenkins CI/CD</strong> • Wanderlust Project</p>
+                                            </td>
+                                        </tr>
+
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
                     </body>
                     </html>
-            """,
-            to: 'trainwithshubham@gmail.com',
-            mimeType: 'text/html'
+                """,
+                to: 'vasupateljsk089@gmail.com',
+                mimeType: 'text/html'
             }
         }
-      failure {
+
+        failure {
             script {
                 emailext attachLog: true,
-                from: 'trainwithshubham@gmail.com',
-                subject: "Wanderlust Application build failed - '${currentBuild.result}'",
+                from: 'vasupateljsk089@gmail.com',
+                subject: "❌ [FAILED] Wanderlust Build Failed - Build #${env.BUILD_NUMBER}",
                 body: """
                     <html>
-                    <body>
-                        <div style="background-color: #FFA07A; padding: 10px; margin-bottom: 10px;">
-                            <p style="color: black; font-weight: bold;">Project: ${env.JOB_NAME}</p>
-                        </div>
-                        <div style="background-color: #90EE90; padding: 10px; margin-bottom: 10px;">
-                            <p style="color: black; font-weight: bold;">Build Number: ${env.BUILD_NUMBER}</p>
-                        </div>
+                    <body style="margin:0; padding:0; font-family: 'Segoe UI', Arial, sans-serif; background-color:#f4f6f9;">
+                        <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#f4f6f9; padding: 30px 0;">
+                            <tr>
+                                <td align="center">
+                                    <table width="600" cellpadding="0" cellspacing="0" style="background-color:#ffffff; border-radius:12px; overflow:hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
+                                        
+                                        <!-- Header Banner -->
+                                        <tr>
+                                            <td style="background: linear-gradient(135deg, #dc3545, #ff6b6b); padding: 35px 40px; text-align:center;">
+                                                <p style="margin:0; font-size:40px;">💥</p>
+                                                <h1 style="margin:10px 0 5px; color:#ffffff; font-size:26px; font-weight:700; letter-spacing:1px;">Build Failed!</h1>
+                                                <p style="margin:0; color:#ffe0e0; font-size:14px;">Wanderlust deployment encountered an error</p>
+                                            </td>
+                                        </tr>
+
+                                        <!-- Body -->
+                                        <tr>
+                                            <td style="padding: 35px 40px;">
+
+                                                <p style="color:#555; font-size:15px; margin-top:0;">Hi Team 👋, unfortunately the latest build has <strong style="color:#dc3545;">failed</strong>. Please check the logs and take action immediately.</p>
+
+                                                <!-- Info Cards -->
+                                                <table width="100%" cellpadding="0" cellspacing="0" style="margin: 20px 0;">
+                                                    <tr>
+                                                        <td style="padding: 4px;">
+                                                            <table width="100%" cellpadding="12" cellspacing="0" style="background:#fff5f5; border-left: 4px solid #dc3545; border-radius:6px;">
+                                                                <tr>
+                                                                    <td style="font-size:13px; color:#555;">📁 <strong>Project</strong></td>
+                                                                    <td style="font-size:14px; color:#222; text-align:right; font-weight:600;">${env.JOB_NAME}</td>
+                                                                </tr>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="padding: 4px;">
+                                                            <table width="100%" cellpadding="12" cellspacing="0" style="background:#fff5f5; border-left: 4px solid #ff6b6b; border-radius:6px;">
+                                                                <tr>
+                                                                    <td style="font-size:13px; color:#555;">🔢 <strong>Build Number</strong></td>
+                                                                    <td style="font-size:14px; color:#222; text-align:right; font-weight:600;">#${env.BUILD_NUMBER}</td>
+                                                                </tr>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="padding: 4px;">
+                                                            <table width="100%" cellpadding="12" cellspacing="0" style="background:#fff5f5; border-left: 4px solid #ffc107; border-radius:6px;">
+                                                                <tr>
+                                                                    <td style="font-size:13px; color:#555;">⚠️ <strong>Status</strong></td>
+                                                                    <td style="font-size:14px; color:#dc3545; text-align:right; font-weight:700;">FAILED</td>
+                                                                </tr>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+
+                                                <!-- Alert Box -->
+                                                <table width="100%" cellpadding="14" cellspacing="0" style="background:#fff3cd; border:1px solid #ffc107; border-radius:8px; margin: 20px 0;">
+                                                    <tr>
+                                                        <td style="font-size:13px; color:#856404;">
+                                                            ⚡ <strong>Action Required:</strong> Please review the attached build logs to diagnose and fix the issue as soon as possible.
+                                                        </td>
+                                                    </tr>
+                                                </table>
+
+                                                <!-- CTA Button -->
+                                                <table width="100%" cellpadding="0" cellspacing="0" style="margin-top:25px;">
+                                                    <tr>
+                                                        <td align="center">
+                                                            <a href="${env.BUILD_URL}" style="background: linear-gradient(135deg, #dc3545, #ff6b6b); color:#ffffff; text-decoration:none; padding:13px 35px; border-radius:25px; font-size:14px; font-weight:700; display:inline-block; letter-spacing:0.5px;">🔍 Investigate Build</a>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+
+                                            </td>
+                                        </tr>
+
+                                        <!-- Footer -->
+                                        <tr>
+                                            <td style="background:#f8f9fa; padding:20px 40px; text-align:center; border-top:1px solid #e9ecef;">
+                                                <p style="margin:0; font-size:12px; color:#aaa;">This is an automated notification from <strong>Jenkins CI/CD</strong> • Wanderlust Project</p>
+                                            </td>
+                                        </tr>
+
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
                     </body>
                     </html>
-            """,
-            to: 'trainwithshubham@gmail.com',
-            mimeType: 'text/html'
+                """,
+                to: 'vasupateljsk089@gmail.com',
+                mimeType: 'text/html'
             }
         }
     }
